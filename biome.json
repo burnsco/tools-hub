@@ -72,14 +72,15 @@
       }
     },
     {
-      "includes": ["*.astro"],
+      "includes": ["**/*.astro"],
       "linter": {
         "rules": {
           "style": {
             "useSelfClosingElements": "off"
           },
           "correctness": {
-            "noUnusedVariables": "off"
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
           }
         }
       }

@@ -1,17 +1,11 @@
 ---
-import ToolCard from "@/components/ui/ToolCard.astro";
+import ComingSoonCard from "@/components/ui/ComingSoonCard.astro";
 import ToolPage from "@/components/ui/ToolPage.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Color Canvas">
   <ToolPage description="Design and share beautiful color palettes.">
-    <ToolCard class="flex min-h-0 items-center justify-center">
-      <div class="text-center">
-        <div class="mb-2 animate-bounce text-4xl">🚧</div>
-        <h2 class="mb-2 text-2xl font-bold tracking-widest text-white uppercase">Coming Soon</h2>
-        <p class="font-medium text-slate-500">This tool is currently under construction.</p>
-      </div>
-    </ToolCard>
+    <ComingSoonCard />
   </ToolPage>
 </Layout>

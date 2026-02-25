@@ -4,7 +4,7 @@ interface Props {
   class?: string;
 }
 
-const { cols = 2, class: className } = Astro.props;
+const { cols = 2, class: className = "" } = Astro.props as Props;
 
 const colClass =
   cols === 1

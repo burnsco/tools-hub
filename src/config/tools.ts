@@ -37,9 +37,9 @@ export const tools: Tool[] = [
     name: "Hash Generator",
     path: "/hash-generator",
     icon: "#️⃣",
-    description: "Generate MD5, SHA-1, SHA-256 hashes.",
+    description: "Generate SHA-256, SHA-384, and SHA-512 hashes.",
     category: "dev",
-    keywords: ["hash", "crypto", "md5", "sha", "security"],
+    keywords: ["hash", "crypto", "sha-256", "sha-512", "security"],
   },
   {
     name: "URL Encoder",

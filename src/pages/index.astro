@@ -3,132 +3,222 @@ import { tools } from "../config/tools";
 import Layout from "../layouts/Layout.astro";
 
 const categoryLabels: Record<string, string> = {
-  dev: "Developer Tools",
-  general: "Generators",
-  fun: "Fun & Games",
+  dev: "Developer",
+  general: "General",
+  fun: "Fun",
   productivity: "Productivity",
+  creative: "Creative",
 };
 
-const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
-  dev: { bg: "bg-indigo-500/10", text: "text-indigo-400", border: "border-indigo-500/20" },
-  general: { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/20" },
-  fun: { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/20" },
-  productivity: { bg: "bg-cyan-500/10", text: "text-cyan-400", border: "border-cyan-500/20" },
-  creative: { bg: "bg-fuchsia-500/10", text: "text-fuchsia-400", border: "border-fuchsia-500/20" },
+const categoryStyles: Record<string, string> = {
+  dev: "bg-teal-400/15 text-teal-200 border-teal-300/35",
+  general: "bg-sky-400/15 text-sky-200 border-sky-300/35",
+  fun: "bg-amber-400/15 text-amber-100 border-amber-300/35",
+  productivity: "bg-emerald-400/15 text-emerald-100 border-emerald-300/35",
+  creative: "bg-fuchsia-400/15 text-fuchsia-100 border-fuchsia-300/35",
 };
 ---
 
-<Layout title="Dashboard">
-  <div class="flex h-full flex-col gap-3 px-3 py-2 sm:px-4 lg:px-5">
-    <!-- Hero -->
-    <section class="relative flex flex-col items-center text-center" style="flex-shrink:0">
-      <!-- Glow -->
-      <div
-        class="pointer-events-none absolute -top-10 left-1/2 h-[200px] w-[400px] -translate-x-1/2 rounded-full opacity-40 blur-[80px]"
-        style="background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, rgba(139,92,246,0.15) 40%, transparent 70%);"
-      >
+<Layout title="Dashboard" description="Browse the full suite of lightweight browser tools.">
+  <section class="dashboard-shell">
+    <header class="dashboard-hero">
+      <p class="dashboard-kicker">All tools in one workspace</p>
+      <h1>Fast utilities with no setup</h1>
+      <p class="dashboard-subcopy">
+        Open a tool, run the task, and move on. Everything runs in your browser.
+      </p>
+      <div class="dashboard-stats">
+        <span>{tools.length} tools available</span>
+        <span>No login required</span>
       </div>
+    </header>
 
-      <div class="relative z-10 space-y-1">
-        <h1
-          class="bg-gradient-to-b from-white via-white/90 to-slate-400 bg-clip-text text-3xl font-extrabold tracking-tighter text-transparent sm:text-4xl"
-        >
-          Tools Hub
-        </h1>
-        <p class="mx-auto max-w-lg text-sm font-medium text-slate-400">
-          Fast, browser-based utilities for developers and everyday workflows.
-        </p>
-      </div>
-    </section>
-
-    <!-- Tools Grid -->
-    <section class="min-h-0 flex-1 overflow-y-auto">
-      <div class="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {
-          tools.map((tool) => {
-            const cat = categoryColors[tool.category] || categoryColors.dev;
-            return (
-              <a
-                href={tool.path}
-                class="tool-card group"
+    <div class="dashboard-grid">
+      {
+        tools.map((tool) => (
+          <a href={tool.path} class="dashboard-card group">
+            <div class="dashboard-card-head">
+              <span class="dashboard-icon" aria-hidden="true">
+                {tool.icon}
+              </span>
+              <h2>{tool.name}</h2>
+            </div>
+            <p>{tool.description}</p>
+            <div class="dashboard-card-foot">
+              <span
+                class:list={[
+                  "dashboard-badge",
+                  categoryStyles[tool.category] ?? categoryStyles.dev,
+                ]}
               >
-                <div class="flex items-start gap-3">
-                  <div class="tool-card-icon">
-                    <span class="text-lg">{tool.icon}</span>
-                  </div>
-                  <div class="min-w-0 flex-1">
-                    <h3 class="text-[0.8rem] font-semibold text-white/90 group-hover:text-white transition-colors">
-                      {tool.name}
-                    </h3>
-                    <p class="mt-0.5 text-[0.7rem] leading-relaxed text-slate-500 group-hover:text-slate-400 transition-colors">
-                      {tool.description}
-                    </p>
-                  </div>
-                </div>
-                <div class="mt-2 flex items-center justify-between">
-                  <span
-                    class:list={[
-                      "inline-block rounded-full px-2 py-0.5 text-[9px] font-semibold tracking-wide border",
-                      cat.bg,
-                      cat.text,
-                      cat.border,
-                    ]}
-                  >
-                    {categoryLabels[tool.category] || tool.category}
-                  </span>
-                  <svg
-                    class="h-3.5 w-3.5 text-slate-600 transition-all group-hover:translate-x-0.5 group-hover:text-slate-400"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </a>
-            );
-          })
-        }
-      </div>
-    </section>
-  </div>
+                {categoryLabels[tool.category] ?? tool.category}
+              </span>
+              <span class="dashboard-arrow" aria-hidden="true">
+                →
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
 </Layout>
 
 <style>
-  .tool-card {
+  .dashboard-shell {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+    min-height: 100%;
     padding: 0.75rem;
-    border-radius: 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    background: rgba(255, 255, 255, 0.02);
-    text-decoration: none !important;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .tool-card:hover {
-    border-color: rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.04);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  .dashboard-hero {
+    position: relative;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1.25rem;
+    padding: 1rem;
+    background:
+      radial-gradient(circle at 12% 10%, rgba(20, 184, 166, 0.18), transparent 44%),
+      radial-gradient(circle at 88% 10%, rgba(245, 158, 11, 0.14), transparent 36%),
+      rgba(8, 18, 25, 0.62);
+    box-shadow: 0 24px 45px rgba(2, 6, 23, 0.35);
   }
 
-  .tool-card-icon {
+  .dashboard-kicker {
+    margin: 0 0 0.5rem;
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: rgba(148, 163, 184, 0.9);
+  }
+
+  .dashboard-hero h1 {
+    margin: 0;
+    font-size: clamp(1.75rem, 4vw, 2.35rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: #f8fafc;
+  }
+
+  .dashboard-subcopy {
+    margin: 0.6rem 0 0;
+    max-width: 44rem;
+    color: rgba(203, 213, 225, 0.9);
+    font-size: 0.95rem;
+  }
+
+  .dashboard-stats {
+    margin-top: 0.85rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .dashboard-stats span {
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 999px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(226, 232, 240, 0.95);
+    background: rgba(15, 23, 42, 0.42);
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .dashboard-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 1rem;
+    padding: 0.85rem;
+    min-height: 11rem;
+    text-decoration: none;
+    background: rgba(11, 27, 36, 0.7);
+    transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(45, 212, 191, 0.38);
+    background: rgba(11, 27, 36, 0.92);
+  }
+
+  .dashboard-card-head {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 0.5rem;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    flex-shrink: 0;
-    transition: all 0.25s;
+    gap: 0.65rem;
   }
 
-  .tool-card:hover .tool-card-icon {
-    background: rgba(99, 102, 241, 0.1);
-    border-color: rgba(99, 102, 241, 0.15);
+  .dashboard-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.75rem;
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    font-size: 1rem;
+  }
+
+  .dashboard-card h2 {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    color: #f8fafc;
+  }
+
+  .dashboard-card p {
+    margin: 0;
+    color: rgba(203, 213, 225, 0.86);
+    font-size: 0.8rem;
+    line-height: 1.45;
+    flex: 1;
+  }
+
+  .dashboard-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .dashboard-badge {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 999px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.55rem;
+    text-transform: uppercase;
+  }
+
+  .dashboard-arrow {
+    font-size: 1rem;
+    color: rgba(148, 163, 184, 0.9);
+    transition: transform 160ms ease;
+  }
+
+  .dashboard-card:hover .dashboard-arrow {
+    transform: translateX(2px);
+    color: rgba(94, 234, 212, 0.95);
+  }
+
+  @media (min-width: 768px) {
+    .dashboard-shell {
+      padding: 1rem;
+    }
+
+    .dashboard-hero {
+      padding: 1.25rem;
+    }
   }
 </style>

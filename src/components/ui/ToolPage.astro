@@ -5,7 +5,7 @@ interface Props {
   class?: string;
 }
 
-const { title, description, class: className } = Astro.props;
+const { title, description, class: className = "" } = Astro.props as Props;
 ---
 
 <div class:list={["ui-page", className]}>

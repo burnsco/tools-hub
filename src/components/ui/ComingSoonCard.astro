@@ -1,0 +1,19 @@
+---
+import ToolCard from "./ToolCard.astro";
+
+interface Props {
+  title?: string;
+  message?: string;
+}
+
+const { title = "Coming Soon", message = "This tool is currently under active development." } =
+  Astro.props as Props;
+---
+
+<ToolCard class="flex min-h-0 items-center justify-center">
+  <div class="text-center">
+    <div class="mb-2 text-4xl">🚧</div>
+    <h2 class="mb-2 text-2xl font-bold tracking-widest text-white uppercase">{title}</h2>
+    <p class="font-medium text-slate-500">{message}</p>
+  </div>
+</ToolCard>

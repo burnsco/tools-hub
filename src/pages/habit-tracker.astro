@@ -127,6 +127,16 @@ import Layout from "../layouts/Layout.astro";
   const statTotal = document.getElementById("stat-total") as HTMLParagraphElement;
   const statDone = document.getElementById("stat-done") as HTMLParagraphElement;
   const statStreak = document.getElementById("stat-streak") as HTMLParagraphElement;
+  const HEX_COLOR_RE = /^#[0-9a-fA-F]{6}$/;
+
+  function escapeHtml(value: string) {
+    return value
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
 
   function getToday() {
     return new Date().toISOString().slice(0, 10);
@@ -176,21 +186,24 @@ import Layout from "../layouts/Layout.astro";
         .map((habit) => {
           const checked = Boolean(habit.checkins?.[today]);
           const streak = countStreak(habit.checkins || {});
+          const safeName = escapeHtml(habit.name || "");
+          const safeId = escapeHtml(habit.id || "");
+          const safeColor = HEX_COLOR_RE.test(habit.color || "") ? habit.color : "#22c55e";
           return `
             <article class="rounded-xl border border-white/5 bg-white/[0.02] p-2.5 hover:border-white/10 transition-colors group">
               <div class="flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center gap-4">
-                  <div class="h-10 w-1 flex-shrink-0 rounded-full" style="background:${habit.color || "#22c55e"}"></div>
+                  <div class="h-10 w-1 flex-shrink-0 rounded-full" style="background:${safeColor}"></div>
                   <div>
-                    <p class="font-bold text-white group-hover:text-indigo-400 transition-colors">${habit.name}</p>
+                    <p class="font-bold text-white group-hover:text-indigo-400 transition-colors">${safeName}</p>
                     <p class="text-[10px] font-bold tracking-widest text-slate-500 uppercase">Streak: ${streak} day${streak === 1 ? "" : "s"}</p>
                   </div>
                 </div>
-                <button type="button" class="delete-habit rounded-lg bg-rose-500/10 px-3 py-1.5 text-[10px] font-bold tracking-widest text-rose-400 uppercase hover:bg-rose-500/20 transition-colors" data-id="${habit.id}">Delete</button>
+                <button type="button" class="delete-habit rounded-lg bg-rose-500/10 px-3 py-1.5 text-[10px] font-bold tracking-widest text-rose-400 uppercase hover:bg-rose-500/20 transition-colors" data-id="${safeId}">Delete</button>
               </div>
 
               <label class="mt-5 flex items-center gap-3 cursor-pointer select-none">
-                <input type="checkbox" class="toggle-habit h-5 w-5 rounded border-slate-600 bg-slate-800 text-indigo-500 focus:ring-indigo-500" data-id="${habit.id}" ${checked ? "checked" : ""} />
+                <input type="checkbox" class="toggle-habit h-5 w-5 rounded border-slate-600 bg-slate-800 text-indigo-500 focus:ring-indigo-500" data-id="${safeId}" ${checked ? "checked" : ""} />
                 <span class="text-sm font-medium ${checked ? "text-emerald-400" : "text-slate-400"}">Mark complete for today</span>
               </label>
             </article>

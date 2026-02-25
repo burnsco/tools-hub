@@ -53,6 +53,14 @@ import Layout from "../layouts/Layout.astro";
   const clearBtn = document.querySelector("#clear-btn") as HTMLButtonElement;
   const copyBtn = document.querySelector("#copy-btn") as HTMLButtonElement;
 
+  const escapeHtml = (value: string) =>
+    value
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+
   const setParams = (params: Array<[string, string]>) => {
     if (!params.length) {
       paramsEl.innerHTML =
@@ -64,8 +72,8 @@ import Layout from "../layouts/Layout.astro";
       .map(
         ([key, value]) =>
           `<div class="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-3 py-2">
-            <span class="font-mono text-slate-200">${key}</span>
-            <span class="text-slate-400">${value}</span>
+            <span class="font-mono text-slate-200">${escapeHtml(key)}</span>
+            <span class="text-slate-400">${escapeHtml(value)}</span>
           </div>`
       )
       .join("");

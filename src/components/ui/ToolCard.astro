@@ -5,10 +5,10 @@ interface Props {
   title?: string;
   step?: string;
   class?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
-const { title, step, class: className, ...rest } = Astro.props;
+const { title, step, class: className = "", ...rest } = Astro.props as Props;
 ---
 
 <Card class={className} {...rest}>

@@ -9,7 +9,7 @@ interface Props {
   variant?: Variant;
   size?: Size;
   class?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const {
@@ -45,11 +45,10 @@ const variants: Record<Variant, string> = {
 };
 
 const cls = `${base} ${sizes[size]} ${variants[variant]} ${className}`.trim();
-const Tag = as;
 ---
 
 {
-  Tag === "a" ? (
+  as === "a" ? (
     <a href={href} class={cls} {...rest}>
       <slot />
     </a>
