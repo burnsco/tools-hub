@@ -8,14 +8,14 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Base64 Encoder/Decoder">
   <ToolPage description="Encode, decode, and inspect Base64 content.">
-    <ToolGrid cols={2} class="gap-3 md:max-h-[72vh] md:items-start">
-      <ToolCard title="Input" step="01." class="md:max-h-[70vh] md:flex md:flex-col">
-        <div class="flex min-h-0 flex-1 flex-col md:min-h-0">
+    <ToolGrid cols={2} class="gap-3 md:items-start">
+      <ToolCard title="Input" step="01." class="md:flex md:flex-col">
+        <div class="flex flex-col">
           <textarea
           id="plain-input"
           rows="8"
           placeholder="Paste text here..."
-          class="min-h-0 flex-1 resize-none font-mono text-sm md:min-h-[140px]"></textarea>
+          class="resize-none font-mono text-sm md:min-h-[140px]"></textarea>
 
           <div class="mt-4 flex flex-shrink-0 flex-wrap gap-4">
             <Button id="encode-btn" variant="primary"> Encode → </Button>
@@ -42,14 +42,14 @@ import Layout from "../layouts/Layout.astro";
         </div>
       </ToolCard>
 
-      <ToolCard title="Base64 Output" step="02." class="flex flex-col md:max-h-[70vh]">
+      <ToolCard title="Base64 Output" step="02." class="flex flex-col">
         <Button slot="header-actions" id="copy-btn" variant="ghost" size="sm"> Copy </Button>
-        <div class="flex min-h-0 flex-1 flex-col gap-4">
+        <div class="flex flex-col gap-4">
           <textarea
             id="base64-output"
             rows="8"
             placeholder="Base64 output will appear here"
-            class="mt-0 min-h-0 flex-1 resize-none bg-black/50 px-3 py-3 font-mono text-sm md:min-h-[140px] md:px-4 md:py-3"
+            class="mt-0 resize-none bg-black/50 px-3 py-3 font-mono text-sm md:min-h-[140px] md:px-4 md:py-3"
           ></textarea>
 
           <div

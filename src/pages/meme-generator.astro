@@ -169,22 +169,41 @@ import Layout from "../layouts/Layout.astro";
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 0.5rem;
+    max-height: 100%;
+    padding: 0.35rem;
     overflow: hidden;
+    min-height: 0;
   }
 
   .meme-layout {
     display: grid;
-    grid-template-columns: 340px 1fr;
-    gap: 0.5rem;
+    grid-template-columns: minmax(270px, 320px) minmax(0, 1fr);
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 1480px;
+    margin: 0 auto;
     height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .meme-layout > * {
     min-height: 0;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 980px) {
     .meme-layout {
       grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr;
+      grid-template-rows: minmax(0, 58%) minmax(15rem, 42%);
+    }
+
+    .preview-panel {
+      order: 1;
+    }
+
+    .controls-panel {
+      order: 2;
     }
   }
 
@@ -201,61 +220,68 @@ import Layout from "../layouts/Layout.astro";
     flex-direction: column;
     height: 100%;
     min-height: 0;
-    border-radius: 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    background: rgba(255, 255, 255, 0.025);
-    backdrop-filter: blur(20px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(24px);
     overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   }
 
   /* ─── Tabs ─── */
   .tab-bar {
     display: flex;
-    gap: 1px;
-    padding: 0.375rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 0.25rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     flex-shrink: 0;
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.2);
   }
 
   .meme-tab {
     flex: 1;
-    padding: 0.375rem 0.5rem;
-    border-radius: 0.375rem;
-    font-size: 0.6875rem;
-    font-weight: 700;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.65rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.08em;
+    color: rgba(148, 163, 184, 0.8);
     background: transparent;
     border: 1px solid transparent;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .meme-tab:hover {
-    color: rgba(255, 255, 255, 0.6);
+    color: white;
     background: rgba(255, 255, 255, 0.04);
   }
 
   .meme-tab.active {
-    color: white;
-    background: rgba(99, 102, 241, 0.15);
-    border-color: rgba(99, 102, 241, 0.25);
+    color: #818cf8;
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.2);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
   }
 
   /* ─── Tab Content ─── */
   .tab-body {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     min-height: 0;
-    overflow-y: auto;
-    padding: 0.5rem;
+    overflow: hidden;
+    padding: 0.6rem;
   }
 
   .tab-content {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    flex: 1;
+    min-height: 0;
+    gap: 0.6rem;
+    overflow: hidden;
   }
 
   .tab-content.hidden {
@@ -267,66 +293,74 @@ import Layout from "../layouts/Layout.astro";
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-shrink: 0;
   }
 
   .file-input {
     flex: 1;
-    font-size: 0.6875rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.65rem;
+    color: rgba(148, 163, 184, 0.8);
     padding: 0 !important;
     border: none !important;
     background: transparent !important;
   }
 
   .file-input::file-selector-button {
-    padding: 0.3rem 0.625rem;
-    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    border-radius: 0.5rem;
     border: none;
     background: #6366f1;
     color: white;
-    font-size: 0.625rem;
-    font-weight: 700;
+    font-size: 0.6rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     cursor: pointer;
-    transition: background 0.2s;
-    margin-right: 0.5rem;
+    transition: all 0.2s;
+    margin-right: 0.6rem;
+    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
   }
 
   .file-input::file-selector-button:hover {
-    background: #818cf8;
-  }
-
-  :global(.refresh-btn) {
-    flex-shrink: 0;
-    font-size: 0.625rem !important;
+    background: #4f46e5;
+    transform: translateY(-1px);
   }
 
   .search-input {
-    font-size: 0.75rem !important;
-    padding: 0.35rem 0.625rem !important;
+    font-size: 0.8rem !important;
+    padding: 0.45rem 0.7rem !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    border-radius: 0.6rem !important;
+    flex-shrink: 0;
   }
 
   .loading-state {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 1rem;
-    color: rgba(255, 255, 255, 0.35);
-    font-size: 0.6875rem;
-    font-weight: 600;
+    gap: 0.6rem;
+    padding: 2rem;
+    color: rgba(148, 163, 184, 0.6);
+    font-size: 0.65rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
+  }
+
+  #memes-grid-wrapper {
+    display: flex;
+    flex: 1;
+    min-height: 0;
   }
 
   .spinner {
-    width: 1rem;
-    height: 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.08);
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid rgba(99, 102, 241, 0.1);
     border-top-color: #6366f1;
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
   @keyframes spin {
@@ -336,37 +370,52 @@ import Layout from "../layouts/Layout.astro";
   /* ─── Memes Grid ─── */
   .memes-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.375rem;
-    max-height: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
-    padding-right: 2px;
+    padding-right: 4px;
+  }
+
+  @media (min-width: 1280px) {
+    .memes-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 
   .meme-template {
     position: relative;
     aspect-ratio: 1;
-    border-radius: 0.5rem;
+    border-radius: 0.6rem;
     overflow: hidden;
-    border: 2px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(0, 0, 0, 0.2);
   }
 
   .meme-template:hover {
-    border-color: rgba(99, 102, 241, 0.4);
-    transform: scale(1.03);
+    border-color: rgba(99, 102, 241, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   .meme-template.selected {
     border-color: #6366f1;
-    box-shadow: 0 0 0 1px #6366f1, 0 4px 12px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3), 0 4px 20px rgba(0, 0, 0, 0.4);
   }
 
   .meme-template img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    filter: brightness(0.9);
+    transition: filter 0.2s;
+  }
+
+  .meme-template:hover img {
+    filter: brightness(1);
   }
 
   .meme-name {
@@ -374,10 +423,10 @@ import Layout from "../layouts/Layout.astro";
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 0.75rem 0.25rem 0.25rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
-    font-size: 0.5625rem;
-    font-weight: 700;
+    padding: 1rem 0.5rem 0.35rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    font-size: 0.55rem;
+    font-weight: 800;
     color: white;
     text-align: center;
     opacity: 0;
@@ -385,6 +434,7 @@ import Layout from "../layouts/Layout.astro";
     text-transform: uppercase;
     letter-spacing: 0.04em;
     line-height: 1.2;
+    pointer-events: none;
   }
 
   .meme-template:hover .meme-name,
@@ -397,55 +447,83 @@ import Layout from "../layouts/Layout.astro";
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 0.25rem;
   }
 
   .text-boxes-list {
     display: flex;
     flex-direction: column;
-    gap: 0.375rem;
+    flex: 1;
+    gap: 0.5rem;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 0.2rem;
+  }
+
+  :global(.refresh-btn) {
+    height: 1.65rem !important;
+    padding-inline: 0.6rem !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.06em !important;
   }
 
   :global(.text-box-card) {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    transition: all 0.2s;
+    background: rgba(0, 0, 0, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 0.75rem !important;
+    padding: 0.6rem !important;
+    transition: all 0.2s ease !important;
   }
 
   :global(.text-box-card.active) {
     border-color: rgba(99, 102, 241, 0.4) !important;
-    background: rgba(99, 102, 241, 0.06) !important;
+    background: rgba(99, 102, 241, 0.08) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  :global(.text-box-input) {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-radius: 0.5rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  :global(.text-box-input:focus) {
+    border-color: rgba(99, 102, 241, 0.5) !important;
+    background: rgba(0, 0, 0, 0.4) !important;
   }
 
   /* ─── Style Bar (always visible) ─── */
   .style-bar {
     flex-shrink: 0;
-    padding: 0.5rem 0.625rem;
+    padding: 0.6rem;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
   }
 
   .style-row {
     display: flex;
     align-items: center;
-    gap: 0.625rem;
+    gap: 0.55rem;
+    flex-wrap: wrap;
   }
 
   .style-control {
     display: flex;
     align-items: center;
-    gap: 0.375rem;
+    gap: 0.5rem;
     flex: 1;
     min-width: 0;
   }
 
   .style-control label {
-    font-size: 0.5625rem;
-    font-weight: 700;
+    font-size: 0.55rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.1em;
+    color: rgba(148, 163, 184, 0.6);
     margin: 0;
     white-space: nowrap;
     flex-shrink: 0;
@@ -454,63 +532,65 @@ import Layout from "../layouts/Layout.astro";
   .range-group {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.35rem;
     flex: 1;
     min-width: 0;
   }
 
   .compact-range {
     flex: 1;
-    height: 3px !important;
+    height: 4px !important;
     min-width: 0;
     padding: 0 !important;
     border: none !important;
-    background: rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
   }
 
   .range-val {
-    font-size: 0.625rem;
-    font-weight: 700;
-    font-family: monospace;
+    font-size: 0.65rem;
+    font-weight: 800;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     color: #818cf8;
-    min-width: 1.25rem;
+    min-width: 1.5rem;
     text-align: right;
     flex-shrink: 0;
   }
 
-  .color-control {
-    flex: 0 0 auto;
+  .color-swatch {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    background: transparent !important;
+    padding: 2px !important;
+    cursor: pointer;
+    transition: transform 0.2s;
   }
 
-  .color-swatch {
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 0.375rem;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    background: transparent !important;
-    padding: 1px !important;
-    cursor: pointer;
+  .color-swatch:hover {
+    transform: scale(1.1);
   }
 
   .reset-pos-btn {
     flex-shrink: 0;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.375rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(255, 255, 255, 0.45);
-    font-size: 0.5625rem;
-    font-weight: 700;
+    padding: 0.35rem 0.6rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(148, 163, 184, 0.8);
+    font-size: 0.55rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
     cursor: pointer;
     transition: all 0.2s;
     white-space: nowrap;
   }
 
   .reset-pos-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   /* ─── Preview Panel ─── */
@@ -526,33 +606,36 @@ import Layout from "../layouts/Layout.astro";
     flex-direction: column;
     height: 100%;
     min-height: 0;
-    border-radius: 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    background: rgba(255, 255, 255, 0.025);
-    backdrop-filter: blur(20px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(24px);
     overflow: hidden;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
   }
 
   .preview-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 0.625rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     flex-shrink: 0;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.2);
   }
 
   .preview-label {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.9);
-    font-family: "Outfit", system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    opacity: 0.9;
   }
 
   .preview-actions {
     display: flex;
-    gap: 0.375rem;
+    gap: 0.5rem;
   }
 
   .canvas-area {
@@ -560,74 +643,101 @@ import Layout from "../layouts/Layout.astro";
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem;
+    padding: 1rem;
     min-height: 0;
     position: relative;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.4);
+    overflow: hidden;
   }
 
   .meme-canvas {
     max-width: 100%;
     max-height: 100%;
-    border-radius: 0.375rem;
+    border-radius: 0.5rem;
     cursor: default;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    transition: box-shadow 0.2s;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #000;
   }
 
   #meme-canvas.edit-mode {
     cursor: move;
     box-shadow:
-      0 0 0 2px #6366f1,
-      0 12px 32px rgba(0, 0, 0, 0.5);
+      0 0 0 3px rgba(99, 102, 241, 0.4),
+      0 30px 70px rgba(0, 0, 0, 0.6);
   }
 
   .edit-hint {
     position: absolute;
-    top: 0.75rem;
+    top: 1.25rem;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(99, 102, 241, 0.9);
+    background: rgba(99, 102, 241, 0.95);
     color: white;
-    padding: 0.3rem 0.75rem;
+    padding: 0.4rem 1rem;
     border-radius: 999px;
-    font-size: 0.6875rem;
-    font-weight: 700;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     white-space: nowrap;
     pointer-events: none;
-    animation: fadeInDown 0.3s ease;
-  }
-
-  .edit-hint.hidden {
-    display: none;
-  }
-
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateX(-50%) translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    z-index: 10;
   }
 
   /* ─── Scrollbars ─── */
   .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(99, 102, 241, 0.25);
-    border-radius: 4px;
+    background: rgba(99, 102, 241, 0.2);
+    border-radius: 10px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(99, 102, 241, 0.45);
+    background: rgba(99, 102, 241, 0.4);
+  }
+
+  @media (max-height: 860px) {
+    .meme-page {
+      padding: 0.25rem;
+    }
+
+    .meme-layout {
+      gap: 0.45rem;
+    }
+
+    .tab-bar,
+    .style-bar {
+      padding: 0.45rem;
+    }
+
+    .meme-tab {
+      padding: 0.4rem;
+      font-size: 0.6rem;
+    }
+
+    .tab-body {
+      padding: 0.5rem;
+    }
+
+    :global(.refresh-btn) {
+      height: 1.5rem !important;
+      padding-inline: 0.5rem !important;
+    }
+
+    .canvas-area {
+      padding: 0.65rem;
+    }
+
+    .preview-header {
+      padding: 0.5rem 0.7rem;
+    }
   }
 </style>
 

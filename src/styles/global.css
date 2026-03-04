@@ -82,7 +82,7 @@
 
 @layer components {
   .ui-page {
-    @apply mx-auto flex h-full w-full max-w-7xl flex-col gap-4 px-3 py-2.5 sm:px-4 lg:px-5;
+    @apply mx-auto flex w-full max-w-7xl flex-col gap-4 px-3 py-2.5 sm:px-4 lg:px-5;
   }
 
   .ui-page-intro {
@@ -99,7 +99,7 @@
   }
 
   .ui-grid {
-    @apply grid min-h-0 flex-1 gap-3 sm:grid-cols-2 lg:grid-cols-3;
+    @apply grid min-h-0 gap-3 sm:grid-cols-2 lg:grid-cols-3;
   }
 
   .ui-card {
