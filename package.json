@@ -1,8 +1,7 @@
 {
   "name": "tools-hub",
-  "type": "module",
   "version": "0.0.1",
-  "packageManager": "bun@1.2.22",
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -18,12 +17,6 @@
     "predeploy": "bun run build",
     "deploy": "scripts/deploy-pages.sh",
     "deploy:prod": "scripts/deploy-pages.sh main"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "oxlint --fix",
-      "oxfmt"
-    ]
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.1",
@@ -41,5 +34,12 @@
     "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3",
     "wrangler": "^4.71.0"
-  }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "oxlint --fix",
+      "oxfmt"
+    ]
+  },
+  "packageManager": "bun@1.2.22"
 }
