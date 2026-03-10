@@ -1,11 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "eslint",
-    "oxc",
-    "unicorn",
-    "typescript"
-  ],
+  "plugins": ["eslint", "oxc", "unicorn", "typescript"],
   "categories": {
     "correctness": "warn",
     "suspicious": "warn",
@@ -19,10 +14,5 @@
     "builtin": true
   },
   "globals": {},
-  "ignorePatterns": [
-    ".astro",
-    "dist",
-    "node_modules",
-    "bun.lock"
-  ]
+  "ignorePatterns": [".astro", "dist", "node_modules", "bun.lock"]
 }

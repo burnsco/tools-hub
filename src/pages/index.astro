@@ -1,5 +1,6 @@
 ---
 import { tools } from "../config/tools";
 
-return Astro.redirect(tools[0].path);
+const redirectPath = tools[0].path;
+return Astro.redirect(redirectPath);
 ---
