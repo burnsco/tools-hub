@@ -1,101 +1,64 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { tools } from "../config/tools";
-import ToolCard from "../components/ui/ToolCard.astro";
-import ToolGrid from "../components/ui/ToolGrid.astro";
-
-const categories = ["dev", "general", "productivity", "fun", "creative"] as const;
-const grouped = tools.reduce(
-  (acc, tool) => {
-    const bucket = acc[tool.category] ?? [];
-    bucket.push(tool);
-    acc[tool.category] = bucket;
-    return acc;
-  },
-  {} as Record<string, typeof tools>
-);
-
-const categoryLabels: Record<string, string> = {
-  dev: "Developer Tools",
-  general: "Security & General",
-  productivity: "Productivity",
-  fun: "Fun & Games",
-  creative: "Creative",
-};
 ---
 
 <Layout title="Tools Hub">
-  <div class="ui-page">
-    <section class="hero-container">
-      <div class="hero-content">
-        <div class="hero-badge">All-in-one Utility Hub</div>
-        <h1 class="hero-title">
-          DEV TOOLS <span class="text-gradient">HUB</span>
-        </h1>
-        <p class="hero-subtitle">
-          Professional grade utilities for modern workflows. Fast, private, and always available.
-        </p>
-      </div>
-      <div class="hero-visual" aria-hidden="true">
+  <div class="welcome-container">
+    <div class="logo-wrapper">
+      <div class="logo-visual" aria-hidden="true">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
         <div class="grid-overlay"></div>
       </div>
-    </section>
-
-    <div class="content-sections">
-      {
-        categories.map(
-          (cat) =>
-            grouped[cat] && (
-              <section class="tool-section">
-                <div class="section-header">
-                  <h2 class="section-title">{categoryLabels[cat]}</h2>
-                  <div class="section-line" />
-                </div>
-                <ToolGrid cols={3}>
-                  {grouped[cat].map((tool) => (
-                    <ToolCard
-                      title={tool.name}
-                      href={tool.path}
-                      description={tool.description}
-                      icon={tool.icon}
-                    />
-                  ))}
-                </ToolGrid>
-              </section>
-            )
-        )
-      }
+      <div class="logo-content">
+        <div class="logo-badge">Professional Utility Suite</div>
+        <h1 class="logo-text">
+          DEV TOOLS<br />
+          <span class="text-gradient">HUB</span>
+        </h1>
+        <div class="logo-decoration">
+          <div class="line"></div>
+          <div class="dot"></div>
+          <div class="line"></div>
+        </div>
+      </div>
     </div>
   </div>
 </Layout>
 
 <style>
-  .hero-container {
-    position: relative;
+  .welcome-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 420px;
-    padding: 3rem 1.5rem;
-    margin-bottom: 2.5rem;
-    border-radius: 2.5rem;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .logo-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #0b1b24;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 3rem;
     overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  .logo-content {
+    position: relative;
+    z-index: 10;
     text-align: center;
   }
 
-  .hero-content {
-    position: relative;
-    z-index: 10;
-    max-width: 800px;
-  }
-
-  .hero-badge {
+  .logo-badge {
     display: inline-block;
     padding: 0.5rem 1.25rem;
     border-radius: 999px;
@@ -104,32 +67,46 @@ const categoryLabels: Record<string, string> = {
     color: #2dd4bf;
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    animation: fade-in-up 0.6s ease-out;
+    margin-bottom: 2rem;
+    animation: fade-in 1s ease-out;
   }
 
-  .hero-title {
-    font-size: clamp(2.5rem, 8vw, 5rem);
+  .logo-text {
+    font-size: clamp(3rem, 10vw, 6rem);
     font-weight: 900;
-    line-height: 1.1;
-    letter-spacing: -0.04em;
+    line-height: 0.95;
+    letter-spacing: -0.05em;
     color: white;
-    margin-bottom: 1.5rem;
-    animation: fade-in-up 0.8s ease-out;
+    margin: 0;
+    animation: scale-in 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .hero-subtitle {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    color: #94a3b8;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-    animation: fade-in-up 1s ease-out;
+  .logo-decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    opacity: 0.5;
   }
 
-  .hero-visual {
+  .logo-decoration .line {
+    height: 1px;
+    width: 60px;
+    background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
+  }
+
+  .logo-decoration .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #2dd4bf;
+    box-shadow: 0 0 10px #2dd4bf;
+  }
+
+  .logo-visual {
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -138,34 +115,33 @@ const categoryLabels: Record<string, string> = {
   .grid-overlay {
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(circle at 50% 50%, black, transparent 90%);
   }
 
   .blob {
     position: absolute;
-    width: 400px;
-    height: 400px;
-    background: #0ea5a4;
-    filter: blur(80px);
+    width: 500px;
+    height: 500px;
+    filter: blur(100px);
     border-radius: 50%;
-    opacity: 0.15;
-    animation: blob-float 20s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+    opacity: 0.2;
+    animation: blob-float 25s infinite alternate ease-in-out;
   }
 
   .blob-1 {
-    top: -100px;
-    left: -100px;
+    top: -10%;
+    left: -10%;
     background: #0ea5a4;
   }
 
   .blob-2 {
-    bottom: -150px;
-    right: -100px;
+    bottom: -15%;
+    right: -10%;
     background: #6366f1;
-    animation-delay: -5s;
+    animation-delay: -7s;
   }
 
   .blob-3 {
@@ -173,74 +149,41 @@ const categoryLabels: Record<string, string> = {
     left: 50%;
     transform: translate(-50%, -50%);
     background: #f59e0b;
-    width: 300px;
-    height: 300px;
-    opacity: 0.08;
-    animation-duration: 15s;
-  }
-
-  .content-sections {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-    padding-bottom: 4rem;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .section-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: white;
-    white-space: nowrap;
-  }
-
-  .section-line {
-    height: 1px;
-    flex: 1;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
+    width: 400px;
+    height: 400px;
+    opacity: 0.1;
+    animation-duration: 18s;
   }
 
   @keyframes blob-float {
-    0% {
-      transform: translate(0, 0) scale(1);
-    }
-    33% {
-      transform: translate(30px, -50px) scale(1.1);
-    }
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(50px, -70px) scale(1.1); }
+    66% { transform: translate(-40px, 40px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
   }
 
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   @media (max-width: 640px) {
-    .hero-container {
-      min-height: 320px;
-      padding: 2rem 1rem;
-      border-radius: 1.5rem;
+    .logo-wrapper {
+      aspect-ratio: 1 / 1;
+      border-radius: 2rem;
     }
     
-    .content-sections {
-      gap: 2.5rem;
+    .logo-text {
+      font-size: 4rem;
+    }
+    
+    .logo-decoration .line {
+      width: 40px;
     }
   }
 </style>
