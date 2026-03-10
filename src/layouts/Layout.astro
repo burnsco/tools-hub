@@ -69,7 +69,7 @@ const grouped = tools.reduce(
     acc[tool.category] = bucket;
     return acc;
   },
-  {} as Partial<Record<Tool["category"], Tool[]>>,
+  {} as Partial<Record<Tool["category"], Tool[]>>
 );
 
 const categoryOrder: Tool["category"][] = ["dev", "general", "productivity", "fun", "creative"];
