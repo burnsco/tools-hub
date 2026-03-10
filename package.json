@@ -8,9 +8,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "biome check .",
+    "lint": "oxlint",
     "lint:fix": "biome check --write .",
-    "format": "biome format --write .",
+    "format": "oxfmt",
     "format:check": "biome format .",
     "lint-staged": "lint-staged",
     "check": "astro check && biome check .",
@@ -20,22 +20,26 @@
     "deploy:prod": "scripts/deploy-pages.sh main"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,astro,json,md,css}": "biome check --write --no-errors-on-unmatched"
+    "*.{js,jsx,ts,tsx}": [
+      "oxlint --fix",
+      "oxfmt"
+    ]
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.0",
-    "astro": "^5.18.0"
+    "@astrojs/sitemap": "^3.7.1",
+    "astro": "^6.0.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.6",
-    "@biomejs/biome": "^2.4.6",
+    "@astrojs/check": "^0.9.7",
     "@tailwindcss/postcss": "^4.2.1",
     "autoprefixer": "^10.4.27",
     "husky": "^9.1.7",
-    "lint-staged": "^16.3.2",
+    "lint-staged": "^16.3.3",
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3",
-    "wrangler": "^4.71.0"
+    "wrangler": "^4.71.0",
+    "oxlint": "^1.52.0",
+    "oxfmt": "^0.37.0"
   }
 }
