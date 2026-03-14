@@ -135,7 +135,7 @@ const games = lotteryData.lotteries.filter((g) => g.id !== "encore");
   }
 
   // Games that support Encore
-  const encoreCompatibleGames = [
+  const encoreCompatibleGames = new Set([
     "keno",
     "pick2",
     "pick3",
@@ -145,7 +145,7 @@ const games = lotteryData.lotteries.filter((g) => g.id !== "encore");
     "ontario_49",
     "daily_grand",
     "lottario",
-  ];
+  ]);
 
   function updateGenerateButtonLabel(gameId) {
     if (!generateBtn) return;
@@ -166,7 +166,7 @@ const games = lotteryData.lotteries.filter((g) => g.id !== "encore");
       kenoPicks.classList.add("hidden");
     }
 
-    if (encoreCompatibleGames.includes(selectedGame.id)) {
+    if (encoreCompatibleGames.has(selectedGame.id)) {
       encoreOption.classList.remove("hidden");
     } else {
       encoreOption.classList.add("hidden");
@@ -336,7 +336,7 @@ const games = lotteryData.lotteries.filter((g) => g.id !== "encore");
     }
 
     // Add Encore if checked
-    if (includeEncore && encoreCompatibleGames.includes(selectedGame.id)) {
+    if (includeEncore && encoreCompatibleGames.has(selectedGame.id)) {
       const encoreDigits = generateDigits(7);
       html += renderDigits(encoreDigits, "Encore", totalDelay);
       copyText += ` | Encore: ${encoreDigits.join("")}`;
