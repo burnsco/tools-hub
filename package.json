@@ -16,7 +16,8 @@
     "prepare": "husky",
     "predeploy": "bun run build",
     "deploy": "scripts/deploy-pages.sh",
-    "deploy:prod": "scripts/deploy-pages.sh main"
+    "deploy:prod": "scripts/deploy-pages.sh main",
+    "cf:status": "../scripts/cf-portfolio.sh status tools-hub"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.1",
