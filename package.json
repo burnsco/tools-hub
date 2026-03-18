@@ -15,8 +15,8 @@
     "check": "astro check",
     "prepare": "husky",
     "predeploy": "bun run build",
-    "deploy": "scripts/deploy-pages.sh",
-    "deploy:prod": "scripts/deploy-pages.sh main",
+    "deploy": "bun run build && bunx wrangler deploy",
+    "deploy:prod": "bun run deploy",
     "cf:status": "../scripts/cf-portfolio.sh status tools-hub"
   },
   "dependencies": {
