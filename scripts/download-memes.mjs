@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import sharp from "sharp";
 
 const MEMES_DIR = path.join(process.cwd(), "public", "memes");
 const DATA_FILE = path.join(process.cwd(), "src", "data", "memes.json");
@@ -27,8 +28,7 @@ async function downloadMemes() {
   const localMemes = [];
 
   for (const meme of memes) {
-    const ext = path.extname(meme.url) || ".jpg";
-    const fileName = `${meme.id}${ext}`;
+    const fileName = `${meme.id}.webp`;
     const filePath = path.join(MEMES_DIR, fileName);
     const localUrl = `/memes/${fileName}`;
 
@@ -36,11 +36,11 @@ async function downloadMemes() {
     try {
       const imgRes = await fetch(meme.url);
       const buffer = await imgRes.arrayBuffer();
-      fs.writeFileSync(filePath, Buffer.from(buffer));
+      await sharp(Buffer.from(buffer)).webp({ quality: 82 }).toFile(filePath);
 
       localMemes.push({
         ...meme,
-        localUrl: localUrl,
+        localUrl,
       });
     } catch (err) {
       console.error(`Failed to download ${meme.name}:`, err);

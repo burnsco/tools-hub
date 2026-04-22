@@ -187,18 +187,30 @@ const games = lotteryData.lotteries.filter((g) => g.id !== "encore");
     }
   });
 
+  function cryptoRandInt(max) {
+    const arr = new Uint32Array(1);
+    crypto.getRandomValues(arr);
+    return arr[0] % max;
+  }
+
+  function fisherYates(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = cryptoRandInt(i + 1);
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
   // Generate random unique numbers
   function generateUniqueNumbers(count, max) {
-    const numbers = new Set();
-    while (numbers.size < count) {
-      numbers.add(Math.floor(Math.random() * max) + 1);
-    }
-    return Array.from(numbers).sort((a, b) => a - b);
+    const pool = Array.from({ length: max }, (_, i) => i + 1);
+    fisherYates(pool);
+    return pool.slice(0, count).sort((a, b) => a - b);
   }
 
   // Generate random digits (can repeat)
   function generateDigits(count) {
-    return Array.from({ length: count }, () => Math.floor(Math.random() * 10));
+    return Array.from({ length: count }, () => cryptoRandInt(10));
   }
 
   // Generate poker hand
@@ -213,9 +225,7 @@ const games = lotteryData.lotteries.filter((g) => g.id !== "encore");
       }
     }
 
-    // Shuffle and deal 5 cards
-    const shuffled = deck.sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 5);
+    return fisherYates(deck).slice(0, 5);
   }
 
   // Render number balls with stagger animation

@@ -14,7 +14,6 @@
     "lint-staged": "lint-staged",
     "check": "astro check",
     "prepare": "husky",
-    "predeploy": "bun run build",
     "deploy": "bun run build && bunx wrangler deploy",
     "deploy:prod": "bun run deploy",
     "cf:status": "../scripts/cf-portfolio.sh status tools-hub"

@@ -742,6 +742,15 @@ import Layout from "../layouts/Layout.astro";
 </style>
 
 <script>
+  function escapeHtml(str: string): string {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
   const container = document.getElementById("meme-generator-container");
   const memesData = JSON.parse(container?.dataset.memes || "[]");
 
@@ -1051,14 +1060,16 @@ import Layout from "../layouts/Layout.astro";
     const popularMemes = memes.slice(0, 100);
 
     memesGrid.innerHTML = popularMemes
-      .map(
-        (meme) => `
-        <div class="meme-template" data-url="${meme.localUrl || meme.url}" data-name="${meme.name}" data-id="${meme.id}">
-          <img src="${meme.localUrl || meme.url}" alt="${meme.name}" loading="lazy" />
-          <div class="meme-name">${meme.name}</div>
-        </div>
-      `
-      )
+      .map((meme) => {
+        const url = escapeHtml(meme.localUrl || meme.url);
+        const name = escapeHtml(meme.name);
+        const id = escapeHtml(String(meme.id));
+        const w = meme.width ? ` width="${meme.width}" height="${meme.height}"` : "";
+        return `<div class="meme-template" data-url="${url}" data-name="${name}" data-id="${id}">
+          <img src="${url}" alt="${name}" loading="lazy"${w} />
+          <div class="meme-name">${name}</div>
+        </div>`;
+      })
       .join("");
 
     document.querySelectorAll(".meme-template").forEach((template) => {
@@ -1097,9 +1108,13 @@ import Layout from "../layouts/Layout.astro";
     };
     img.onerror = () => {
       const img2 = new Image();
+      img2.crossOrigin = "anonymous";
       img2.onload = () => {
         currentImg = img2;
         initializeTextBoxes(memeId);
+      };
+      img2.onerror = () => {
+        console.error("Failed to load meme image:", url);
       };
       img2.src = url;
     };
