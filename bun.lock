@@ -5,21 +5,22 @@
     "": {
       "name": "tools-n-stuff",
       "dependencies": {
-        "@astrojs/sitemap": "latest",
-        "astro": "latest",
+        "@astrojs/sitemap": "^3.7.3",
+        "astro": "^7.0.7",
       },
       "devDependencies": {
-        "@astrojs/check": "latest",
-        "@tailwindcss/postcss": "latest",
-        "autoprefixer": "latest",
-        "husky": "latest",
-        "lint-staged": "latest",
-        "oxfmt": "latest",
-        "oxlint": "latest",
-        "postcss": "latest",
-        "tailwindcss": "latest",
-        "typescript": "latest",
-        "wrangler": "latest",
+        "@astrojs/check": "^0.9.9",
+        "@tailwindcss/postcss": "^4.3.2",
+        "@tailwindcss/vite": "^4.3.2",
+        "autoprefixer": "^10.5.2",
+        "husky": "^9.1.7",
+        "lint-staged": "^17.0.8",
+        "oxfmt": "^0.58.0",
+        "oxlint": "^1.73.0",
+        "postcss": "^8.5.16",
+        "tailwindcss": "^4.3.2",
+        "typescript": "^7.0.2",
+        "wrangler": "^4.110.0",
       },
     },
   },
@@ -467,6 +468,8 @@
     "@tailwindcss/oxide-win32-x64-msvc": ["@tailwindcss/oxide-win32-x64-msvc@4.3.2", "", { "os": "win32", "cpu": "x64" }, "sha512-QI9BO7KlNZsp2GuO0jwAAj5jCDABOKXRkCk2XuKTSaNEFSdfzqswYVTtCHBNKHLsqyjFyFkqlDiwkNbTYSssMQ=="],
 
     "@tailwindcss/postcss": ["@tailwindcss/postcss@4.3.2", "", { "dependencies": { "@alloc/quick-lru": "^5.2.0", "@tailwindcss/node": "4.3.2", "@tailwindcss/oxide": "4.3.2", "postcss": "^8.5.15", "tailwindcss": "4.3.2" } }, "sha512-rjVWYCa7Ngbi5AarT6k8TkxUG3Wl1QKzHdIZVsjZSzf36Jmo2IKZt/NHRAwly8oDkbBOH0YTu+CHuf9jPxMc+g=="],
+
+    "@tailwindcss/vite": ["@tailwindcss/vite@4.3.2", "", { "dependencies": { "@tailwindcss/node": "4.3.2", "@tailwindcss/oxide": "4.3.2", "tailwindcss": "4.3.2" }, "peerDependencies": { "vite": "^5.2.0 || ^6 || ^7 || ^8" } }, "sha512-eHpMeX4JXfVNJDEcsouTeCBubJBTcTLigeaw/NTUW6PB5ATKKXdyonnXgTBX2VuRbjz1hjfz6C5XAhr52ImQXA=="],
 
     "@tybys/wasm-util": ["@tybys/wasm-util@0.10.3", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg=="],
 
